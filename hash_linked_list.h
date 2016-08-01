@@ -14,7 +14,7 @@ typedef struct HashList
 
 typedef struct HashListNode
 {
-	uint64_t hash;
+  uint64_t hash;
   struct HashListNode* next;
   struct HashListNode* bucket_next;
   struct HashListNode* bucket_previous;
