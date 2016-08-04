@@ -25,7 +25,7 @@ void print_list_details(HashList *list)
   i = list->next;
   while(i)
   {
-    printf("Hash: %lu\n", i->hash);
+    printf("Hash: %llu\n", i->hash);
     i = i->next;
   }
 }
@@ -54,16 +54,16 @@ HashListNode* hl_insert_or_find(HashList *list, uint64_t passed_hash)
     new_node->hash = passed_hash;
     new_node->next = NULL;
     new_node->bucket_next = NULL;
-    new_node->bucket_previous = NULL;    
+    new_node->bucket_previous = NULL;
     list->last = list->next = list->buckets[bucket_number] = new_node;
 
     increment_length(list);
     return list->next;
   }
-
   HashListNode* found_node = hl_find_node(list, passed_hash);
   if(found_node)
   {
+    //printf("Found previously existing node, bumping %llu to front\n", passed_hash);
     if(found_node->bucket_previous != NULL)
     {
       found_node->bucket_previous->bucket_next = found_node->bucket_next;
@@ -73,10 +73,11 @@ HashListNode* hl_insert_or_find(HashList *list, uint64_t passed_hash)
     return found_node;
   }
   else
-  { 
+  {
     HashListNode *new_node = (HashListNode*)malloc(sizeof(HashListNode));
     new_node->hash = passed_hash;
     new_node->next = NULL;
+    new_node->bucket_next = NULL;
     new_node->bucket_previous = NULL;
     if(list->buckets[bucket_number] != NULL)
     {

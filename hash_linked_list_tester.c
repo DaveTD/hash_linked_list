@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "hash_linked_list.h"
 
-void main() 
+int main()
 {
   HashList test;
   hl_initialize(&test, 1000000);
@@ -18,6 +18,8 @@ void main()
   hl_insert_or_find(&test, 222);
   hl_insert_or_find(&test, 23);
 
+  printf("Printing\n");
+
   print_list_details(&test);
-  return;
+  return 1;
 }
